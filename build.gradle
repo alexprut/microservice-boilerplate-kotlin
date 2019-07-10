@@ -49,6 +49,13 @@ application {
     mainClassName = 'microservice.kotlin.boilerplate.AppKt'
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'microservice.kotlin.boilerplate.AppKt'
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
 task ktlint(type: JavaExec, group: "verification") {
     description = "Check Kotlin code style."
     classpath = configurations.ktlint
