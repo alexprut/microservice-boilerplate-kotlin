@@ -1,0 +1,45 @@
+version: "3"
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: "rabbitmq"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "/"
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      INFLUXDB_IS_GRAFANADB: "true"
+      GF_SECURITY_ADMIN_PASSWORD: grafana
+
+  telegraf:
+    image: telegraf:latest
+
+  influx:
+    image: influxdb:latest
+    ports:
+      - "33330:33330"
+      - "8083:8083"
+    environment:
+      INFLUXDB_ADMIN_USER: influxdb
+      INFLUXDB_ADMIN_PASSWORD: influxdb
