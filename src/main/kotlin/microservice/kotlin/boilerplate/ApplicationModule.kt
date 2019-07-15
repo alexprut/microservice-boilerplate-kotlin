@@ -17,6 +17,14 @@ class ApplicationModule : AbstractModule() {
             .to(System.getenv("HTTP_PORT") ?: "8080")
         bindConstant().annotatedWith(Names.named("hostname"))
             .to(System.getenv("HTTP_HOST") ?: "0.0.0.0")
+        bindConstant().annotatedWith(Names.named("databaseUser"))
+            .to(System.getenv("DATABASE_USER"))
+        bindConstant().annotatedWith(Names.named("databasePassword"))
+            .to(System.getenv("DATABASE_PASSWORD"))
+        bindConstant().annotatedWith(Names.named("databaseHost"))
+            .to(System.getenv("DATABASE_HOST") ?: "0.0.0.0")
+        bindConstant().annotatedWith(Names.named("databaseName"))
+            .to(System.getenv("DATABASE_NAME"))
     }
 
     private fun configInstances() {

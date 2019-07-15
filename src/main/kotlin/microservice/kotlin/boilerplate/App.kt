@@ -2,6 +2,8 @@ package microservice.kotlin.boilerplate
 
 import com.google.inject.Guice
 import com.google.inject.Inject
+import com.google.inject.name.Named
+import microservice.kotlin.boilerplate.database.Migration
 import mu.KotlinLogging
 import kotlin.system.exitProcess
 
@@ -22,7 +24,13 @@ fun main() {
     }
 }
 
-class Application @Inject constructor(private val server: Server) {
+class Application @Inject constructor(
+    private val server: Server,
+    @Named("databaseUser") private val databaseUser: String,
+    @Named("databasePassword") private val databasePassword: String,
+    @Named("databaseHost") private val databaseHost: String,
+    @Named("databaseName") private val databaseName: String
+) {
     companion object {
         @JvmStatic
         private val logger = KotlinLogging.logger {}
@@ -34,6 +42,7 @@ class Application @Inject constructor(private val server: Server) {
     fun start() {
         registerHooks()
         recordRuntimeConfig()
+        Migration().migrate("jdbc:postgresql://$databaseHost/$databaseName", databaseUser, databasePassword)
 
         server.start()
     }

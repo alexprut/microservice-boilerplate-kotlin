@@ -15,6 +15,10 @@
 | --- |--- |
 | `HTTP_HOST` | default `0.0.0.0` |
 | `HTTP_PORT` | default `8080` |
+| `DATABASE_NAME` | |
+| `DATABASE_HOST` | default `0.0.0.0` |
+| `DATABASE_PASSWORD` | |
+| `DATABASE_USER` | |
 
 ## Build
 
